@@ -1,0 +1,58 @@
+
+spring:
+
+#  mvc:
+#    view:
+#      prefix: /
+#      suffix: .html
+
+  security:   #服了， 用了security  必须登陆才能跳转页面， 真的服
+    user:
+      name: yuanbaojian
+      password: 666666
+    basic:
+      enabled: false
+
+  thymeleaf:
+    cache: false
+    #prefix: classpath:/static/
+
+
+  datasource:
+    filters: stat
+            # 最大激活链接
+    maxActive: 20
+            # 初始化连接数
+    initialSize: 1
+            # 最大等待数
+    maxWait: 60000
+            #  最小空闲
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+
+  redis:
+    database: 1
+    host: 192.168.0.58
+    port: 6379
+    password:
+
+  mail:
+    host: smtp.qq.com
+    username: 352512524@qq.com
+    password: hxervlfnzxascafd
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+
