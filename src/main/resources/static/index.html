@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="/temp/document::head_index">
+<title>主页</title>
+</head>
+<body class="user-select">
+<!--动画-->
+<div th:replace="/temp/document::mrxwdonghua"></div>
+<!--动画-->
+
+<div th:replace="/temp/document::right_nav"></div>
+<section class="container">
+<div class="content-wrap">
+<div class="content">
+  <div id="focusslide" class="carousel slide" data-ride="carousel">
+	<ol class="carousel-indicators">
+	  <li th:each="tplb,state:${ZY_TPLB}" data-target="#focusslide" data-slide-to="${state.index}" th:class="${state.index==0?'active':''}"></li>
+	</ol>
+	<div class="carousel-inner" role="listbox">
+	  <div th:each="tplb,state:${ZY_TPLB}" th:class="${state.index==0?'item active':'item'}">
+	  <a th:href="@{'/article/'+${tplb[t_article_id]}}" target="_blank" th:title="${tplb.t_article_title_1}" >
+	  <img width="100%"  th:src="@{'/image/'+${tplb.t_article_img1}}" class="img-responsive"></a>
+	  </div>
+	</div>
+	  <a class="left carousel-control" href="#focusslide" role="button" data-slide="prev" rel="nofollow"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span class="sr-only">上一个</span> </a>
+	  <a class="right carousel-control" href="#focusslide" role="button" data-slide="next" rel="nofollow"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="sr-only">下一个</span> </a> </div>
+  <article class="excerpt-minic excerpt-minic-index">
+		<h2><span class="red">【推荐】</span>
+			<a target="_blank" th:href="@{'/article/'+${SY_TJGL[0].t_article_id}}" th:title="${SY_TJGL[0].t_article_title_1}" >
+				<span th:text="${SY_TJGL[0].t_article_title_1}"></span></a>
+		</h2>
+		<p class="note" th:text="${SY_TJGL[0].t_article_title_2}"></p>
+	</article>
+  <div class="title">
+	<h3>最新发布</h3>
+	  <div class="more">
+		  <a href="#" title="IT技术" >IT技术</a>
+		  <a href="#" title="潮流前线" >潮流前线</a>
+		  <a href="#" title="工作生活" >工作生活</a>
+		  <a href="#" title="靠谱网赚" >靠谱网赚</a>
+		  <a href="#" title="学习阅读" >学习阅读</a>
+	  </div>
+  </div>
+  <article class="excerpt excerpt-1" th:each="art:${article}" >
+  <a class="focus" th:href="@{'/article/'+${art[t_article_id]}}" th:title="${art.t_article_title_1}" target="_blank" ><img  th:src="@{'/image/'+${art[t_article_img1]}}" class="thumb"   alt="明日新闻"  style="display: inline;"></a>
+		<header><a class="cat" href="#" title="标签" >标签<i></i></a>
+			<h2><a href="#" th:title="${art.t_article_title_1}" target="_blank" th:text="${art.t_article_title_1}"></a>
+			</h2>
+		</header>
+		<p class="meta">
+			<time class="time"><i class="glyphicon glyphicon-time"></i> [[${#dates.format(art[t_article_create_date],'yyyy-MM-dd')}]]</time>
+			<span class="views"><i class="glyphicon glyphicon-eye-open"></i> 216</span> <a class="comment" href="##comment" title="评论" target="_blank" ><i class="glyphicon glyphicon-comment"></i> 4</a>
+		</p>
+		<a th:href="@{'/article/'+${art[t_article_id]}}"><p class="note"  th:text="${art[t_article_title_2]}"></p></a>
+	</article>
+
+	<ul class="pagination" >
+		<li th:if="${page.current}>1">
+			<a th:href="@{'/page/'+${page.prePage}}">&laquo;</a>
+		</li>
+		<li th:else class="disabled">
+			<a href="">&laquo;</a>
+		</li>
+		<li >
+			<a href=""><span th:text="${page.current+'/'+page.lastPage}"></span></a>
+		</li>
+		<li th:if="${page.current}<${page.lastPage}">
+			<a th:href="@{'/page/'+${page.nextPage}}">&raquo;</a>
+		</li>
+		<li th:else class="disabled">
+			<a href="">&raquo;</a>
+		</li>
+	</ul>
+
+</div>
+</div>
+
+<aside class="sidebar">
+<div id="loginstate" onchange="loginok()">
+	<!--登陆模板-->
+	<div class="fixed">
+		<div class="widget widget-tabs">
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active"><a href="#notice" aria-controls="notice" role="tab" data-toggle="tab" >用户信息</a></li>
+				<li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab" >联系管理</a></li>
+			</ul>
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane contact active" id="notice">
+					<br>
+					<p align="center" style="font-family: 楷体"><b>登录后可保存您的浏览喜好、评论、以及发布新闻</b></p>
+					<p align="center"><button type="button" onclick="loginhoutai()" style="width: 200px;" class="btn btn-primary ">登录</button></p>
+					<p align="center">
+						<a href="#" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-qq fa-2x" aria-hidden="true"></i></a>
+						<a href="#" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-weixin fa-2x" aria-hidden="true"></i></a>
+					</p>
+				</div>
+				<div role="tabpanel" class="tab-pane contact" id="contact">
+					<h2>QQ:1165343269
+						<a href="" target="_blank" rel="nofollow" data-toggle="tooltip" data-placement="bottom" title=""  data-original-title="QQ:"></a>
+					</h2>
+					<h2>Email:1165343269@qq.com
+						<a href="#" target="_blank" data-toggle="tooltip" rel="nofollow" data-placement="bottom" title=""  data-original-title="#"></a></h2>
+				</div>
+			</div>
+		</div>
+		<div th:include="/temp/document::seek_document"></div>
+	</div>
+</div>
+<div class="widget widget_hot">
+	  <h3>最火爆文</h3>
+	<!--hotArticles-->
+	  <ul th:each="hot:${hotArticles}">
+			<li><a th:title="${hot[t_article_title_1]}" th:href="@{'/article/'+${hot[t_article_id]}}" ><span class="thumbnail">
+				<img class="thumb"  th:src="@{'/image/'+${hot[t_article_img1]}}"   style="display: block;">
+			</span><span class="text" th:text="${hot[t_article_title_1]}"></span><span class="muted"><i class="glyphicon glyphicon-time"></i>
+				[[${#dates.format(hot[t_article_create_date],'yyyy-MM-dd')}]]
+			</span>
+				<!--<span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span>-->
+			</a>
+			</li>
+	  </ul>
+	<!--hotArticles-->
+ </div>
+<div th:include="/temp/document::advertising_document"></div>
+</aside>
+</section>
+<footer class="footer">
+	<div class="container">
+		<p>欢迎使用明日新闻，丰富资讯一网打尽</p>
+		<br>
+		<p  >主页访问量：<span th:text="${clickCount.currentPage}"></span></p>
+	</div>
+	<div id="gotop"><a class="gotop"></a></div>
+</footer>
+<div th:replace="/temp/document::tail_index"></div>
+<script>
+        function loginhoutai() {
+            window.location.href='/tologin';
+        }
+        function loginout() {
+            window.location.href='/loginout';
+        }
+</script>
+<script th:inline="javascript" >
+    $('#loginstate').trigger('change');
+    function loginok() {
+        var  account= /*[[${session.t_user}]]*/ 'ok';
+        var  t_user_url= '/image/'+/*[[${session.t_user_url}]]*/'ok';
+        if (account!=null){
+            var  id= /*[[${session.t_id}]]*/ 'ok';
+            $.post('/usercomcount',{"account":id},function (data) {
+                comm=data.comcount;
+                if (comm == "" || comm == null || comm == undefined){
+                    comm=0;
+				}
+                    $('#loginstate').html("<div class=\"fixed\">\n" +
+                        "        <div class=\"widget widget-tabs\">\n" +
+                        "            <ul class=\"nav nav-tabs\" role=\"tablist\">\n" +
+                        "                <li role=\"presentation\" class=\"active\"><a href=\"#notice\" aria-controls=\"notice\" role=\"tab\" data-toggle=\"tab\" >用户信息</a></li>\n" +
+                        "                <li role=\"presentation\"><a href=\"#contact\" aria-controls=\"contact\" role=\"tab\" data-toggle=\"tab\" >联系管理</a></li>\n" +
+                        "            </ul>\n" +
+                        "            <div class=\"tab-content\">\n" +
+                        "                <div role=\"tabpanel\" class=\"tab-pane contact active\" id=\"notice\">\n" +
+                        "                    <p style=\"text-align: right\"><a onclick=\"loginout()\">退出</a></p>\n" +
+                        "                  <p align=\"center\"><a href=\"/userhome\"><img src='"+t_user_url+"' style=\"width:70px; height:70px; border-radius:50%;-webkit-border-radius:50%;-moz-border-radius:50%;\"></a></p>\n" +
+                        "                    <p style=\"text-align: center\">"+account+"</p>\n" +
+                        "                   <div>" +
+                        "					 <div style='float: left'>&nbsp;&nbsp;<a href='#'>粉丝:12</a></div>" +
+                        "					<div style='float: right'><a href='/commentpage' >评论:"+comm+"</a>&nbsp;&nbsp;</div>" +
+                        "					</div>\n" +
+                        "                </div>\n" +
+                        "                <div role=\"tabpanel\" class=\"tab-pane contact\" id=\"contact\">\n" +
+                        "                    <h2>QQ:1165343269\n" +
+                        "                        <a href=\"\" target=\"_blank\" rel=\"nofollow\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\"  data-original-title=\"QQ:\"></a>\n" +
+                        "                    </h2>\n" +
+                        "                    <h2>Email:1165343269@qq.com\n" +
+                        "                        <a href=\"#\" target=\"_blank\" data-toggle=\"tooltip\" rel=\"nofollow\" data-placement=\"bottom\" title=\"\"  data-original-title=\"#\"></a></h2>\n" +
+                        "                </div>\n" +
+                        "            </div>\n" +
+                        "        </div>\n" +
+                        "        <div class=\"widget widget_search\">\n" +
+                        "            <form class=\"navbar-form\" action=\"/Search\" method=\"post\">\n" +
+                        "                <div class=\"input-group\">\n" +
+                        "                    <input type=\"text\" name=\"keyword\" class=\"form-control\" size=\"35\" placeholder=\"请输入关键字\" maxlength=\"15\" autocomplete=\"off\">\n" +
+                        "                    <span class=\"input-group-btn\">\n" +
+                        "\t\t<button class=\"btn btn-default btn-search\" name=\"search\" type=\"submit\">搜索</button>\n" +
+                        "\t\t</span> </div>\n" +
+                        "            </form>\n" +
+                        "        </div>\n" +
+                        "    </div>");
+            },'json')
+        }else {
+				// alert("自动登陆失败了呢");
+        }
+    }
+</script>
+</body>
+</html>
